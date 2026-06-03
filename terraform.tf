@@ -6,6 +6,10 @@ terraform {
       source  = "Azure/azapi"
       version = "~> 2.4"
     }
+    msgraph = {
+      source  = "microsoft/msgraph"
+      version = "~> 0.2"
+    }
     # TODO: Ensure all required providers are listed here and the version property includes a constraint on the maximum major version.
     azurerm = {
       source  = "hashicorp/azurerm"

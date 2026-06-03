@@ -6,6 +6,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 4.21"
     }
+    msgraph = {
+      source  = "microsoft/msgraph"
+      version = "~> 0.2"
+    }
     modtm = {
       source  = "azure/modtm"
       version = "~> 0.3"
@@ -19,6 +23,9 @@ terraform {
 
 provider "azurerm" {
   features {}
+}
+
+provider "msgraph" {
 }
 
 

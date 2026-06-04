@@ -66,7 +66,6 @@ module "test" {
       display_name  = "e2e-pim-contributor"
       description   = "PIM enabled group for Contributor access"
       mail_nickname = "e2epimcontrib"
-      visibility    = "Hidden"
     }
   }
 

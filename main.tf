@@ -12,7 +12,6 @@ resource "msgraph_resource" "pim_group" {
     mailNickname       = each.value.mail_nickname
     securityEnabled    = true
     isAssignableToRole = true
-    visibility         = each.value.visibility
   }
 }
 
@@ -30,32 +29,32 @@ resource "msgraph_resource" "approval_group" {
   }
 }
 
-# Optional relationship: assign the approval group to the PIM-enabled group as a nested member.
-resource "msgraph_resource" "pim_group_approval_group_membership" {
-  for_each = var.pim_group_approval_group_memberships
+# # Optional relationship: assign the approval group to the PIM-enabled group as a nested member.
+# resource "msgraph_resource" "pim_group_approval_group_membership" {
+#   for_each = var.pim_group_approval_group_memberships
 
-  url         = "groups/${msgraph_resource.pim_group[each.value.pim_group_key].id}/members/$ref"
-  api_version = "v1.0"
-  body = {
-    "@odata.id" = "https://graph.microsoft.com/v1.0/groups/${msgraph_resource.approval_group[each.value.approval_group_key].id}"
-  }
-}
+#   url         = "groups/${msgraph_resource.pim_group[each.value.pim_group_key].id}/members/$ref"
+#   api_version = "v1.0"
+#   body = {
+#     "@odata.id" = "https://graph.microsoft.com/v1.0/groups/${msgraph_resource.approval_group[each.value.approval_group_key].id}"
+#   }
+# }
 
-# Optional direct eligibility grants to PIM-enabled groups.
-resource "msgraph_resource" "pim_group_eligibility_request" {
-  for_each = var.pim_group_eligibility_requests
+# # Optional direct eligibility grants to PIM-enabled groups.
+# resource "msgraph_resource" "pim_group_eligibility_request" {
+#   for_each = var.pim_group_eligibility_requests
 
-  url         = "identityGovernance/privilegedAccess/group/eligibilityScheduleRequests"
-  api_version = "beta"
-  body = {
-    action        = each.value.action
-    accessId      = each.value.access_id
-    principalId   = each.value.principal_id
-    groupId       = msgraph_resource.pim_group[each.value.pim_group_key].id
-    justification = each.value.justification
-    scheduleInfo  = each.value.schedule_info
-  }
-}
+#   url         = "identityGovernance/privilegedAccess/group/eligibilityScheduleRequests"
+#   api_version = "beta"
+#   body = {
+#     action        = each.value.action
+#     accessId      = each.value.access_id
+#     principalId   = each.value.principal_id
+#     groupId       = msgraph_resource.pim_group[each.value.pim_group_key].id
+#     justification = each.value.justification
+#     scheduleInfo  = each.value.schedule_info
+#   }
+# }
 
 # Assign scoped RBAC (subscription/resource-group/resource) to each PIM-enabled group.
 resource "azurerm_role_assignment" "pim_group_scoped" {

@@ -13,10 +13,10 @@ output "pim_group_role_assignments" {
   value       = { for k, v in azurerm_role_assignment.pim_group_scoped : k => v.id }
 }
 
-output "pim_group_eligibility_requests" {
-  description = "Map of created direct eligibility requests for PIM groups."
-  value       = { for k, v in msgraph_resource.pim_group_eligibility_request : k => v.id }
-}
+# output "pim_group_eligibility_requests" {
+#   description = "Map of created direct eligibility requests for PIM groups."
+#   value       = { for k, v in msgraph_resource.pim_group_eligibility_request : k => v.id }
+# }
 
 output "access_package_catalogs" {
   description = "Map of created access package catalogs."

@@ -1,10 +1,3 @@
-output "private_endpoints" {
-  description = <<DESCRIPTION
-  A map of the private endpoints created.
-  DESCRIPTION
-  value       = var.private_endpoints_manage_dns_zone_group ? azurerm_private_endpoint.this_managed_dns_zone_groups : azurerm_private_endpoint.this_unmanaged_dns_zone_groups
-}
-
 output "pim_groups" {
   description = "Map of created PIM-enabled Entra ID groups."
   value       = { for k, v in msgraph_resource.pim_group : k => { id = v.id, display_name = var.pim_groups[k].display_name } }
